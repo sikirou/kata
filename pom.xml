@@ -18,7 +18,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>${env.junitVersion}</version>
+      <version>${POM_VERSION}</version>
       <scope>test</scope>
     </dependency>
     
