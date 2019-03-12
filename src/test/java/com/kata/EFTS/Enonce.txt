@@ -1,0 +1,10 @@
+Entretien du 11/03/2019
+
+le sujet est :  creer une fonction qui retourne le nombre de dates distinctes de plus de 2
+produits officiels
+
+Produit :
+date,
+produitId,
+isOfficial,
+prices

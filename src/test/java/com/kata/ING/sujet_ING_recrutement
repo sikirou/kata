@@ -1,0 +1,4 @@
+NOus avons deux classes : Transaction et Trader ;
+
+1 : trouver toutes les transaction de 2019 ordonnées pat montant decroissant , si les montant sont les mêmes ordonner par nom Trader
+2 :
