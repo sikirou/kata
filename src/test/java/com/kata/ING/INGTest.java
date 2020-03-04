@@ -9,12 +9,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.*;
 import static org.junit.Assert.assertEquals;
 
 
 public class INGTest {
 
-    Comparator<Transaction> comparator = Comparator.reverseOrder();
+    Comparator<Transaction> comparator = reverseOrder();
     private INGTest ingTest;
 
     @Before
@@ -34,24 +35,24 @@ public class INGTest {
                 new Transaction(new Trader("Jules", "paris"), 96, 2017));
     }
 
-    private List<Transaction> listeTransactionByYear(int year) {
-        return ingTest.getTransaction().stream().filter(transaction -> transaction.getAnnee() == year).collect(Collectors.toList());
+    private List<Transaction> listeTransactionByYear() {
+        return ingTest.getTransaction().stream().filter(transaction -> transaction.getAnnee() == 2019).collect(Collectors.toList());
     }
 
-    private List<Transaction> findTransactionBYYearOrderByAmount(int year) {
-        return listeTransactionByYear(year).stream().sorted(comparator).collect(Collectors.toList());
+    private List<Transaction> findTransactionBYYearOrderByAmount() {
+        return listeTransactionByYear().stream().sorted(comparator).collect(Collectors.toList());
     }
 
     @Test
     public void transactionIn2019ShouldBeFour() {
-        assertEquals(4,listeTransactionByYear(2019).size());
-        assertEquals("[Trader : nom :abdoul , ville : paris , annee : 2 019, montant :15, Trader : nom :madou , ville : Evry , annee : 2 019, montant :20, Trader : nom :georges , ville : DEF , annee : 2 019, montant :79, Trader : nom :Jean , ville : Evry , annee : 2 019, montant :85]", listeTransactionByYear(2019).toString());
+        assertEquals(4,listeTransactionByYear().size());
+        assertEquals("[Trader : nom :abdoul , ville : paris , annee : 2 019, montant :15, Trader : nom :madou , ville : Evry , annee : 2 019, montant :20, Trader : nom :georges , ville : DEF , annee : 2 019, montant :79, Trader : nom :Jean , ville : Evry , annee : 2 019, montant :85]", listeTransactionByYear().toString());
     }
 
     @Test
     public void transactionIN2019ShouldBeSortedByAmount() {
-        assertEquals(4,findTransactionBYYearOrderByAmount(2019).size());
-        assertEquals("[Trader : nom :Jean , ville : Evry , annee : 2 019, montant :85, Trader : nom :georges , ville : DEF , annee : 2 019, montant :79, Trader : nom :madou , ville : Evry , annee : 2 019, montant :20, Trader : nom :abdoul , ville : paris , annee : 2 019, montant :15]", findTransactionBYYearOrderByAmount(2019).toString());
+        assertEquals(4,findTransactionBYYearOrderByAmount().size());
+        assertEquals("[Trader : nom :Jean , ville : Evry , annee : 2 019, montant :85, Trader : nom :georges , ville : DEF , annee : 2 019, montant :79, Trader : nom :madou , ville : Evry , annee : 2 019, montant :20, Trader : nom :abdoul , ville : paris , annee : 2 019, montant :15]", findTransactionBYYearOrderByAmount().toString());
     }
 
     class Trader implements Comparable {

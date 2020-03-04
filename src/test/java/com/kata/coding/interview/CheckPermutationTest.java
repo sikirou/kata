@@ -34,10 +34,13 @@ public class CheckPermutationTest {
             "test,ttes,true",
             "abdoul,louda,false",
             ",,true",
-            "dix,idx,true"
+            "dix,idx,true",
+            "null,,false",
+            ",null,false"
     }
     )
     public void check_input_is_permutation_of_output(String input, String expected, boolean isValid) {
         assertThat(checkPermutation.isPermutation(input, expected), Is.is(isValid));
     }
-}
+
+  }
