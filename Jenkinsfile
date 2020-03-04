@@ -1,12 +1,18 @@
 pipeline {
     agent any
     stages {
+
             stage('Build') {
                 steps {
                     echo 'Building..'
-                    bat 'make'
+                    bat 'mvn clean install'
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 }
+                post {
+                         success {
+                            junit 'target/surefire-reports/**/*.xml'
+                         }
+                         }
             }
             stage('Test') {
                 steps {
