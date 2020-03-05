@@ -1,8 +1,12 @@
 package com.kata.codewar;
 
+import java.util.logging.Logger;
+
 public class Abbreviator {
+ private static final Logger LOGGER = Logger.getLogger("Abbreviator") ;
 
     public String abbreviate(String word) {
+        LOGGER.info("input is : " + word);
         StringBuilder stringBuilder = new StringBuilder();
         String[] word_splited = word.split("[^\\w]");
         if (word.length() <= 3) {
