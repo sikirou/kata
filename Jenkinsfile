@@ -3,16 +3,17 @@ pipeline {
     stages {
 
             stage('clean'){
+
                 steps {
                     echo 'cleaning'
                     bat 'mvn clean'
                 }
+
             }
             stage('Build') {
                 steps {
                     echo 'Building..'
                     bat 'mvn compile'
-
                 }
 
             }
@@ -20,6 +21,7 @@ pipeline {
                 steps {
                     echo 'Testing..'
                     bat 'mvn test'
+
                 }
                post {
                   success {
@@ -33,6 +35,7 @@ pipeline {
                     bat 'mvn install'
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                  }
+
             }
             stage('Deploy') {
                 steps {
