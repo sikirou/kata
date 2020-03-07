@@ -16,10 +16,12 @@ pipeline {
                     bat 'mvn compile'
                 }
 
+
             }
             stage('Test') {
                 steps {
                     echo 'Testing..'
+
                     bat 'mvn test'
 
                 }
