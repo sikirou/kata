@@ -2,60 +2,60 @@ pipeline {
     agent any
     stages {
 
-            stage('clean'){
+            stage("clean"){
 
                 steps {
-                    echo 'cleaning'
+                    echo "cleaning"
                      if (isUnix()) {
-                        sh 'mvn clean'
+                        sh "mvn clean"
                      }else{
-                        bat 'mvn clean'
+                        bat "mvn clean"
                      }
                 }
 
             }
-            stage('Build') {
+            stage("Build") {
                 steps {
-                    echo 'Building..'
+                    echo "Building.."
                     if(isUnix()){
-                     sh 'mvn compile'
+                     sh "mvn compile"
                     }else {
-                        bat 'mvn compile'
+                        bat "mvn compile"
                     }
                 }
 
 
             }
-            stage('Test') {
+            stage("Test") {
                 steps {
-                    echo 'Testing..'
+                    echo "Testing.."
                     if(isUnix()){
-                     sh 'mvn test'
+                     sh "mvn test"
                     }else{
-                         bat 'mvn test'
+                         bat "mvn test"
                     }
                 }
                post {
                   success {
-                     junit 'target/surefire-reports/**/*.xml'
+                     junit "target/surefire-reports/**/*.xml"
                   }
                 }
             }
-            stage('install'){
+            stage("install"){
                 steps{
-                    echo 'install'
+                    echo "install"
                      if(isUnix()){
-                        sh 'mvn install'
+                        sh "mvn install"
                      }else{
-                        bat 'mvn install'
+                        bat "mvn install"
                      }
-                    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                    archiveArtifacts artifacts: "**/target/*.jar", fingerprint: true
                  }
 
             }
-            stage('Deploy') {
+            stage("Deploy") {
                 steps {
-                    echo 'Deploying....'
+                    echo "Deploying...."
                 }
             }
         }
