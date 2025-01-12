@@ -8,7 +8,7 @@ pipeline {
                     echo "cleaning"
                      if (isUnix()) {
                         sh "mvn clean"
-                     } els e{
+                     } else {
                         bat "mvn clean"
                      }
                 }
