@@ -6,13 +6,14 @@ pipeline {
 
                 steps {
                     echo "cleaning"
+                    script {
                      if (isUnix()) {
                         sh "mvn clean"
                      } else {
                         bat "mvn clean"
                      }
                 }
-
+                }
             }
             stage("Build") {
                 steps {
