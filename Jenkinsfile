@@ -1,7 +1,10 @@
 pipeline {
     agent any
     stages {
-
+            tools {
+            maven "3.3.9"
+                jdk "jdk17"
+            }
             stage("clean"){
 
                 steps {
