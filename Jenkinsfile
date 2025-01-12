@@ -6,20 +6,20 @@ pipeline {
 
                 steps {
                     echo "cleaning"
-               //      if (isUnix()) {
+                     if (isUnix()) {
                         sh "mvn clean"
-                 //    }else{
-                  //      bat "mvn clean"
-                   //  }
+                     } els e{
+                        bat "mvn clean"
+                     }
                 }
 
             }
             stage("Build") {
                 steps {
                     echo "Building.."
-                    if(isUnix()){
+                    if (isUnix() ){
                      sh "mvn compile"
-                    }else {
+                    } else {
                         bat "mvn compile"
                    }
                 }
@@ -29,9 +29,9 @@ pipeline {
             stage("Test") {
                 steps {
                     echo "Testing.."
-                    if(isUnix()){
+                    if (isUnix()) {
                      sh "mvn test"
-                    }else{
+                    } else {
                          bat "mvn test"
                     }
                 }
@@ -44,9 +44,9 @@ pipeline {
             stage("install"){
                 steps{
                     echo "install"
-                     if(isUnix()){
+                     if (isUnix()) {
                         sh "mvn install"
-                     }else{
+                     } else {
                         bat "mvn install"
                      }
                     archiveArtifacts artifacts: "**/target/*.jar", fingerprint: true
