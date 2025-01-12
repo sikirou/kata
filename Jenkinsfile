@@ -18,23 +18,26 @@ pipeline {
             stage("Build") {
                 steps {
                     echo "Building.."
+                     script {
                     if (isUnix() ){
                      sh "mvn compile"
                     } else {
                         bat "mvn compile"
                    }
                 }
-
+                }
 
             }
             stage("Test") {
                 steps {
                     echo "Testing.."
+                     script {
                     if (isUnix()) {
                      sh "mvn test"
                     } else {
                          bat "mvn test"
                     }
+                }
                 }
                post {
                   success {
@@ -45,6 +48,7 @@ pipeline {
             stage("install"){
                 steps{
                     echo "install"
+                     script {
                      if (isUnix()) {
                         sh "mvn install"
                      } else {
@@ -52,7 +56,7 @@ pipeline {
                      }
                     archiveArtifacts artifacts: "**/target/*.jar", fingerprint: true
                  }
-
+                }
             }
             stage("Deploy") {
                 steps {
