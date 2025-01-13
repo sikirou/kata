@@ -1,39 +1,47 @@
 pipeline {
     agent any
+    tools {
+            maven "MAVEN_3.9.9"
+            jdk "JAVA_17"
+          }
     stages {
 
             stage("clean"){
 
                 steps {
                     echo "cleaning"
-               //      if (isUnix()) {
+                    script {
+                     if (isUnix()) {
                         sh "mvn clean"
-                 //    }else{
-                  //      bat "mvn clean"
-                   //  }
+                     } else {
+                        bat "mvn clean"
+                     }
                 }
-
+                }
             }
             stage("Build") {
                 steps {
                     echo "Building.."
-                  //  if(isUnix()){
+                     script {
+                    if (isUnix() ){
                      sh "mvn compile"
-                  //  }else {
-                   //     bat "mvn compile"
-                   //}
+                    } else {
+                        bat "mvn compile"
+                   }
                 }
-
+                }
 
             }
             stage("Test") {
                 steps {
                     echo "Testing.."
-                 //   if(isUnix()){
+                     script {
+                    if (isUnix()) {
                      sh "mvn test"
-                 //   }else{
-                 //        bat "mvn test"
-                  //  }
+                    } else {
+                         bat "mvn test"
+                    }
+                }
                 }
                post {
                   success {
@@ -44,14 +52,15 @@ pipeline {
             stage("install"){
                 steps{
                     echo "install"
-                  //   if(isUnix()){
+                     script {
+                     if (isUnix()) {
                         sh "mvn install"
-                  //   }else{
-                  //      bat "mvn install"
-                  //   }
+                     } else {
+                        bat "mvn install"
+                     }
                     archiveArtifacts artifacts: "**/target/*.jar", fingerprint: true
                  }
-
+                }
             }
             stage("Deploy") {
                 steps {
