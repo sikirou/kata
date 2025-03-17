@@ -1,27 +1,70 @@
 pipeline {
     agent any
+    tools {
+            maven "MAVEN_3.9.9"
+            jdk "JAVA_17"
+          }
     stages {
 
-            stage('Build') {
+            stage("clean"){
+
                 steps {
-                    echo 'Building..'
-                    bat 'mvn clean install'
-                    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                    echo "cleaning"
+                    script {
+                     if (isUnix()) {
+                        sh "mvn clean"
+                     } else {
+                        bat "mvn clean"
+                     }
                 }
-                post {
-                         success {
-                            junit 'target/surefire-reports/**/*.xml'
-                         }
-                         }
-            }
-            stage('Test') {
-                steps {
-                    echo 'Testing..'
                 }
             }
-            stage('Deploy') {
+            stage("Build") {
                 steps {
-                    echo 'Deploying....'
+                    echo "Building.."
+                     script {
+                    if (isUnix() ){
+                     sh "mvn compile"
+                    } else {
+                        bat "mvn compile"
+                   }
+                }
+                }
+
+            }
+            stage("Test") {
+                steps {
+                    echo "Testing.."
+                     script {
+                    if (isUnix()) {
+                     sh "mvn test"
+                    } else {
+                         bat "mvn test"
+                    }
+                }
+                }
+               post {
+                  success {
+                     junit "target/surefire-reports/**/*.xml"
+                  }
+                }
+            }
+            stage("install"){
+                steps{
+                    echo "install"
+                     script {
+                     if (isUnix()) {
+                        sh "mvn install"
+                     } else {
+                        bat "mvn install"
+                     }
+                    archiveArtifacts artifacts: "**/target/*.jar", fingerprint: true
+                 }
+                }
+            }
+            stage("Deploy") {
+                steps {
+                    echo "Deploying...."
                 }
             }
         }
